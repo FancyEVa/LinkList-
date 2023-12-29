@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<malloc.h>
-
+#define MAX 5
 typedef struct _linklist            //define a new type "LinkList"/定义 "LinkList"数据类型
 {
   int value;                //linklist's value/值
@@ -13,14 +13,12 @@ void Print(LinkList* );
 void Change(LinkList* , int );
 void Add(LinkList* , int );
 void Remove(LinkList* , int );
-void Shift(LinkList* , int );
+void Trade(LinkList* , int );
 void Edit(LinkList*);
 
 int main()
 {
-    int Length;
-    scanf("%d", &Length);
-    LinkList *FancyEVa = Build(len);
+    LinkList *FancyEVa = Build(MAX);
     Print(FancyEVa);
     Edit(FancyEVa);
     Print(FancyEVa);
@@ -47,7 +45,7 @@ LinkList* Build(int len)
 void Edit(LinkList *head)
 {
     int rank;
-    printf("\nCan-do list:\n1.Change\n2.Add\n3.Remove\n4.Shift\nChoice:");
+    printf("\nCan-do list:\n1.Change\n2.Add\n3.Remove\n4.Trade\nChoice:");
     int choice;
     scanf("%d", &choice);
     printf("\nPosition:");
@@ -64,7 +62,7 @@ void Edit(LinkList *head)
             Remove(head, rank);
             break;
         case 4:
-//            Shift(head, rank);
+            Trade(head, rank);
             break;
     }
 }
@@ -86,7 +84,6 @@ void Change(LinkList *head, int rank)
     printf("Value:");
     scanf("%d", &head->value);
 }
-
 
 void Add(LinkList *head , int rank)
 {
@@ -119,4 +116,41 @@ void Remove(LinkList *head , int rank)
     }
     else
         printf("Absent");
+}
+
+void Trade(LinkList *head , int rank)
+{
+    LinkList *active, *negative, *link1, *link2;
+    active = head;
+    negative = head;
+
+    int i;
+    for(i = 0; i < rank; i++)
+    {
+        link1 = active;
+        active = active->next;
+    }
+    int position;
+    printf("Another Position:");
+    scanf("%d", &position);
+    for(i = 0; i < position; i++)
+    {
+        link2 = negative;
+        negative = negative->next;
+    }
+    if(position < rank)  //order:link1 --> active --> link2 --->negative
+    {
+        if(rank == MAX || position == MAX)
+            active->next = link2->next;
+            link2->next = active;
+            negative->next = link1->next;
+            link1->next = negative;
+    }
+//    else
+//    {
+//        active->next = link2->next;
+//        link2->next = active;
+//        negative->next = link1->next
+//        link1->next = negative;
+//    }
 }
