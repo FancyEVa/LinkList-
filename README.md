@@ -1,2 +1,2 @@
-This Code is used to build and edit a simple linklist, containing processes towards nodes like modification, adding, removement and exchange.
-实现对链表元素的改、增、删以及交换
+This Code can be used for building and editing a simple linklist, capable to realize adding, removement, modification,exchange towards elements contained.
+该代码能够建立一个简单链表并实现对链表元素的增、删、改、换等编辑操作
