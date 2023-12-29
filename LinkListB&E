@@ -2,20 +2,25 @@
 #include<stdlib.h>
 #include<malloc.h>
 
-typedef struct _linklist      //define a new type "LinkList"/定义 "LinkList"数据类型
+typedef struct _linklist            //define a new type "LinkList"/定义 "LinkList"数据类型
 {
-  int value;           //linklist's value/值
-  struct _linklist *next;            //link pointer/链表指针
+  int value;                //linklist's value/值
+  struct _linklist *next;       //link pointer/链表指针
 }LinkList;
 
 LinkList* Build(int );
 void Print(LinkList* );
 void Change(LinkList* , int );
+void Add(LinkList* , int );
+void Remove(LinkList* , int );
+void Shift(LinkList* , int );
 void Edit(LinkList*);
 
 int main()
 {
-    LinkList *FancyEVa = Build(5);
+    int Length;
+    scanf("%d", &Length);
+    LinkList *FancyEVa = Build(len);
     Print(FancyEVa);
     Edit(FancyEVa);
     Print(FancyEVa);
@@ -39,6 +44,31 @@ LinkList* Build(int len)
     return Head;
 }
 
+void Edit(LinkList *head)
+{
+    int rank;
+    printf("\nCan-do list:\n1.Change\n2.Add\n3.Remove\n4.Shift\nChoice:");
+    int choice;
+    scanf("%d", &choice);
+    printf("\nPosition:");
+    scanf("%d", &rank);
+    switch(choice)
+    {
+        case 1:
+            Change(head, rank);
+            break;
+        case 2:
+            Add(head, rank);
+            break;
+        case 3:
+            Remove(head, rank);
+            break;
+        case 4:
+//            Shift(head, rank);
+            break;
+    }
+}
+
 void Print(LinkList *head)
 {
     while(head->next)
@@ -57,10 +87,36 @@ void Change(LinkList *head, int rank)
     scanf("%d", &head->value);
 }
 
-void Edit(LinkList *head)
+
+void Add(LinkList *head , int rank)
 {
-    int rank;
-    printf("\nPosition:");
-    scanf("%d", &rank);
-    Change(head, rank);
+    LinkList *fix, *joint;
+    joint = head;
+    int i;
+    for(i = 0; i < rank; i++)
+        joint = joint->next;
+    fix = (LinkList* )malloc(sizeof(LinkList));
+    printf("Value:");
+    scanf("%d", &fix->value);
+    fix->next = joint->next;
+    joint->next = fix;
+}
+
+void Remove(LinkList *head , int rank)
+{
+    LinkList *jump, *block;
+    block = head;
+    int i;
+    for(i = 0; i < rank; i++)
+    {
+        jump = block;
+        block = block->next;
+    }
+    if(block)
+    {
+        jump->next = block->next;
+        free(block);
+    }
+    else
+        printf("Absent");
 }
