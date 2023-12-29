@@ -1,1 +1,66 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
 
+typedef struct _linklist      //define a new type "LinkList"/定义 "LinkList"数据类型
+{
+  int value;           //linklist's value/值
+  struct _linklist *next;            //link pointer/链表指针
+}LinkList;
+
+LinkList* Build(int );
+void Print(LinkList* );
+void Change(LinkList* , int );
+void Edit(LinkList*);
+
+int main()
+{
+    LinkList *FancyEVa = Build(5);
+    Print(FancyEVa);
+    Edit(FancyEVa);
+    Print(FancyEVa);
+    return 0;
+}
+
+LinkList* Build(int len)
+{
+    LinkList *Head, *p;
+    Head = (LinkList *)malloc(sizeof(LinkList));
+    p = Head;
+    int i;
+    for(i = 0; i < len; i++)
+    {
+        p->next = (LinkList *)malloc(sizeof(LinkList));
+        p = p->next;
+        scanf("%d", &p->value);
+    }
+    p->next = NULL;
+    system("cls");
+    return Head;
+}
+
+void Print(LinkList *head)
+{
+    while(head->next)
+    {
+        head = head->next;
+        printf("%d ", head->value);
+    }
+}
+
+void Change(LinkList *head, int rank)
+{
+    int i;
+    for(i = 0; i < rank; i++)
+        head = head->next;
+    printf("Value:");
+    scanf("%d", &head->value);
+}
+
+void Edit(LinkList *head)
+{
+    int rank;
+    printf("\nPosition:");
+    scanf("%d", &rank);
+    Change(head, rank);
+}
