@@ -10,11 +10,12 @@ typedef struct _linklist            //define a new type "LinkList"/定义 "LinkL
 
 LinkList* Build(int );
 void Print(LinkList* );
-void Change(LinkList* , int );
-void Add(LinkList* , int );
+       
+void Add(LinkList* , int );           //realize adding, removement, modification,exchange 实现对链表元素的增、删、改、换
 void Remove(LinkList* , int );
+void Change(LinkList* , int );  
 void Trade(LinkList* , int );
-void Edit(LinkList*);
+void Edit(LinkList*);           //integrated function集成函数
 
 int main()
 {
